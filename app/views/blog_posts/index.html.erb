@@ -1,5 +1,37 @@
-<h1>MY BLOG  </h1>
-<% @blog_posts.each do|blog_post| %>
-<h2><%= blog_post.title %></h2>
-   <%= blog_post.body %>
-<% end %>
+<div class="blog-container">
+  <header class="blog-header">
+    <h1>Mon Blog</h1>
+  </header>
+
+  <div class="posts-grid">
+    <% @blog_posts.each do |blog_post| %>
+      <article class="post-card">
+        <h2><%= link_to blog_post.title, blog_post %></h2>
+        <p class="post-body"><%= truncate(blog_post.body, length: 150) %></p>
+        <div class="post-footer">
+          <%= link_to "Lire la suite →", blog_post, class: "read-more" %>
+        </div>
+      </article>
+    <% end %>
+  </div>
+
+  <div class="pagination">
+    <%== pagy_nav(@pagy) %>
+  </div>
+</div>
+
+<style>
+  .blog-container { max-width: 900px; margin: 0 auto; padding: 2rem 1rem; }
+  .blog-header { margin-bottom: 2rem; border-bottom: 1px solid #e5e7eb; padding-bottom: 1rem; }
+  .blog-header h1 { font-size: 2rem; font-weight: 700; }
+  .posts-grid { display: grid; gap: 1.5rem; }
+  .post-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 1.5rem; }
+  .post-card h2 { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem; }
+  .post-card h2 a { text-decoration: none; color: #111; }
+  .post-card h2 a:hover { color: #2563eb; }
+  .post-body { color: #6b7280; line-height: 1.6; margin-bottom: 1rem; }
+  .post-footer { border-top: 1px solid #f3f4f6; padding-top: 0.75rem; }
+  .read-more { color: #2563eb; text-decoration: none; font-size: 0.9rem; }
+  .read-more:hover { text-decoration: underline; }
+  .pagination { margin-top: 2rem; display: flex; justify-content: center; }
+</style>

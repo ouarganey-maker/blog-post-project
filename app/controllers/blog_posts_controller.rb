@@ -1,12 +1,15 @@
 class BlogPostsController < ApplicationController
     before_action :set_action, only:[:edit, :show, :update, :destroy]
     before_action :authenticate_user!, except: [ :index, :show]
-    def index
-        if user_signed_in
-        @blog_posts = BlogPost.published.sorted
-        else BlogPost.sorted
-        end
-    end
+   def index
+  if user_signed_in?
+    @blog_posts = BlogPost.published.sorted
+  else
+    @blog_posts = BlogPost.sorted
+  end
+
+  @pagy, @blog_posts = pagy(@blog_posts)
+end
     def show
     end
     def new
@@ -40,7 +43,7 @@ class BlogPostsController < ApplicationController
     def set_action
      @blog_post = user_signed_in? ? BlogPost.find(params[:id]) : BlogPost.published.find(params[:id])
     rescue ActiveRecord::RecordNotFound
-ordNotfound
+
         redirect_to root_path
     end
 end

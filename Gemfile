@@ -57,6 +57,8 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+  #Environment Variables
+  gem 'dotenv-rails'
 end
 
 group :test do
@@ -68,3 +70,17 @@ end
 gem "devise", "~> 4.9"
 
 gem "tailwindcss-rails", "~> 4.4"
+
+gem "pagy", "~> 9.0"
+
+gem "resque", require: "resque/server"
+
+
+gem'redis'
+# OAuth2 Google / YouTube
+gem 'omniauth'
+gem 'omniauth-google-oauth2'
+gem 'omniauth-rails_csrf_protection'
+gem 'google-apis-youtube_v3'
+gem 'googleauth'
+
